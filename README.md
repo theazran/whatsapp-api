@@ -48,5 +48,5 @@ curl_close($curl);
 echo $response;
 
 ```
-# buy me a coffe
+# buy me a coffe 🍵
  [Saweria](https://saweria.co/theazran)
