@@ -13,7 +13,6 @@ npm start
 open browser localhost:9000
 input your number whatsapp and scan qrcode
 ```
-## featured
 > [!NOTE]
 > only send text message.
 ## sample
