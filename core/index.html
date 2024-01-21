@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp API Unofficial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto py-5">
+        <form action="/device" method="post" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+            <div class="mb-4">
+                <div>
+                    <img src="" alt="QR Code" id="qrcode" class="mx-auto w-full md:w-4/5">
+                </div>
+            </div>
+            <div class="mt-4">
+                <span id="ref"></span>
+                <ul class="logs list-disc pl-4"></ul>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script>
+        const url = window.location.href;
+        const lastSegment = url.split("/").pop();
+        var socket = io();
+
+        socket.emit('StartConnection', lastSegment);
+
+        socket.on('message', function (msg) {
+            $('.logs').append($('<li>').text(msg));
+        });
+
+        socket.on('qr', function (src) {
+            $('#qrcode').attr('src', src);
+            $('#qrcode').show();
+        });
+
+        socket.on('ready', function (data) {
+            $('#logout').attr('href', '/logout/' + data);
+            $("#ref").html('<button class="btn btn-danger mb-3" id="logout" onclick="logout(' + data + ')">Logout</button>');
+            $('#qrcode').hide();
+        });
+
+        function logout(device) {
+            socket.emit('LogoutDevice', device)
+        }
+    </script>
+</body>
+
+</html>
