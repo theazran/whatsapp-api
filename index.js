@@ -75,6 +75,11 @@ app.get("/scan/:id", (req, res) => {
     res.sendFile(__dirname + "/core/index.html");
 });
 
+app.get('/sessions', (req, res) => {
+  const sessions = fs.readdirSync(path);
+  res.json({ sessions });
+});
+
 app.post(
     "/send",
     [
