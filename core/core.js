@@ -42,7 +42,7 @@ async function connect(sta, msg, to, type, img) {
             }
         } else if (connection === "open") {
             if (msg != null && to != null) {
-                const id = to + "@s.whatsapp.net";
+                const id = to
                 if (type === "chat") {
                     sock.sendMessage(id, {
                         text: msg,
