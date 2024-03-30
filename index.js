@@ -141,3 +141,5 @@ app.post("/device", (req, res) => {
 server.listen(port, () => {
     console.log("App running on: " + port);
 });
+
+module.exports = app;
