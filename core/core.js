@@ -42,13 +42,13 @@ async function connect(sta, msg, to, type, img) {
             }
         } else if (connection === "open") {
             if (msg != null && to != null) {
-                const id = to
+                const id = to + "@s.whatsapp.net";
                 if (type === "chat") {
-                    sock.sendMessage(id + "@s.whatsapp.net", {
+                    sock.sendMessage(id, {
                         text: msg,
                     });
                 } else if (type === "image") {
-                    sock.sendMessage(id + "@g.us", { image: { url: img }, caption: msg })
+                    sock.sendMessage(id, { image: { url: img }, caption: msg })
                 }
             }
         }
