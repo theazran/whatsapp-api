@@ -75,6 +75,27 @@ app.get("/scan/:id", (req, res) => {
     res.sendFile(__dirname + "/core/index.html");
 });
 
+app.get("/send", (req, res) => {
+    const { number, to, type, message, img } = req.query;
+    const sessionPath = path.concat(number); // Assuming 'path' is defined elsewhere
+
+    if (fs.existsSync(sessionPath)) {
+        try {
+            // Assuming 'con.gas' is a function defined elsewhere
+            con.gas(message, number, to, type, img);
+            res.status(200).json({ status: true, message: "success" });
+        } catch (error) {
+            res.status(401).json({ status: false, message: error.message });
+        }
+    } else {
+        res.status(401).json({
+            status: false,
+            message: "Please scan the QR before using the API",
+        });
+    }
+});
+
+
 app.post(
     "/send",
     [

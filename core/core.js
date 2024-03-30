@@ -8,11 +8,11 @@ const pino = require("pino");
 const fs = require("fs");
 const path = "sessions/";
 
-exports.gas = function (msg, no, to, type) {
-    connect(no, msg, to, type);
+exports.gas = function (msg, no, to, type, img) {
+    connect(no, msg, to, type, img);
 };
 
-async function connect(sta, msg, to, type) {
+async function connect(sta, msg, to, type, img) {
     const sessionPath = path.concat(sta);
 
     const { state, saveCreds } = await useMultiFileAuthState(sessionPath);
@@ -47,6 +47,8 @@ async function connect(sta, msg, to, type) {
                     sock.sendMessage(id, {
                         text: msg,
                     });
+                } else if (type === "image") {
+                    sock.sendMessage(id, { image: { url: img }, caption: msg })
                 }
             }
         }
