@@ -44,11 +44,11 @@ async function connect(sta, msg, to, type, img) {
             if (msg != null && to != null) {
                 const id = to
                 if (type === "chat") {
-                    sock.sendMessage(id, {
+                    sock.sendMessage(id + "@s.whatsapp.net", {
                         text: msg,
                     });
                 } else if (type === "image") {
-                    sock.sendMessage(id, { image: { url: img }, caption: msg })
+                    sock.sendMessage(id + "@g.us", { image: { url: img }, caption: msg })
                 }
             }
         }
